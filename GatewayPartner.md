@@ -29,7 +29,7 @@
 To use the API, you must have a valid user assigned by MiiD team!!
 
 Url - Login User - POST
-https://services.miid.bio/Login/LoginUser/
+https://servicesdev.miid.bio/Login/LoginUser/
 
 ```json
 {
@@ -69,7 +69,7 @@ Response fields:
 * **isEnrollVoice** = If Person have enrollment with Voice biometric factor
 
 Url - GetResultByExternalIdProcess - POST
-> https://services.miid.bio/Partner/GetUserByDocument/
+> https://servicesdev.miid.bio/Partner/GetUserByDocument/
 
 Example Json
 ```sh
@@ -124,7 +124,7 @@ Response fields:
 * **3** = Voice
 
 Url - GetResultByExternalIdProcess - POST
-> https://services.miid.bio/Partner/GetAuthenticationMechanism/
+> https://servicesdev.miid.bio/Partner/GetAuthenticationMechanism/
 
 Example Json
 ```sh
@@ -195,7 +195,7 @@ Response fields:
 * **inProcess** =If True, the process has not finished and you must wait for this flag to change to false 
 
 Url - GetResultByExternalIdProcess - POST
-> https://services.miid.bio/Partner/GetResultByExternalIdProcess/
+> https://servicesdev.miid.bio/Partner/GetResultByExternalIdProcess/
 
 Example Json
 ```sh
@@ -243,7 +243,7 @@ Response fields:
  **Same response of operation Get Result By Process Id**
 
 Url - GetResultByExternalIdProcess - POST
-> https://services.miid.bio/Partner/GetResultByProcessId/
+> https://servicesdev.miid.bio/Partner/GetResultByProcessId/
 
 Example Json
 ```sh
@@ -298,7 +298,7 @@ Response fields:
   * **documentBase64** = Image in base64 encoding
 
 Url - GetResultByExternalIdProcess - POST
-> https://services.miid.bio/Partner/GetImagesResultByProcessId/
+> https://servicesdev.miid.bio/Partner/GetImagesResultByProcessId/
 
 Example Json
 ```sh
@@ -345,7 +345,7 @@ Response fields:
   * **documentBase64** = Image in base64 encoding
 
 Url - GetImagesResultByExternalIdProcess - POST
-> https://services.miid.bio/Partner/GetImagesResultByExternalIdProcess/
+> https://servicesdev.miid.bio/Partner/GetImagesResultByExternalIdProcess/
 
 Example Json
 ```sh
