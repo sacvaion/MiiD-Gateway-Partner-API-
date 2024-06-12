@@ -17,6 +17,7 @@
  - [DetectAndCheckLiveness](#ApiGatewayDetectAndCheckLiveness) (Upload face images only)
  - [Enroll Person Gateway Sync](#ApiGatewayEnrollPersonGateway)
  - [Enroll Person Gateway Async](#ApiGatewayEnrollPersonAsync)
+ - [Validate Doc Person Async Gateway](#ValidateDocPersonAsyncGateway)
  - [Authentication Person Face](#ApiGatewayAuthenticationPersonFace)
  - [Authentication Person Finger](#ApiGatewayAuthenticationPersonFinger)
 
@@ -451,37 +452,37 @@ curl --location --request POST 'https://servicesdev.miid.bio/Partner/EnrollPerso
 **Response Information**:
 
 
-Response â€“ Status 200: User authenticated and enrolled
+Response – Status 200: User authenticated and enrolled
 ```json
 {
     "id": "a12f8bb1-3518-46b3-8b14-01c3d71b392d",
-     â€¦ (other values)
+     … (other values)
     "statusProcess": true,
     "statusReturn": "SUCCESS"
 }
 ```
 
-Response â€“ Status 200: User with error and enrolled
+Response – Status 200: User with error and enrolled
 ```json
 {
     "id": "a12f8bb1-3518-46b3-8b14-01c3d71b392d",
-     â€¦ (other values)
+     … (other values)
     "statusProcess": false,
     "statusReturn": "NO_ENROLL"
 }
 ```
 
-Response â€“ Status 200: User â€“ this will be answer other questions (another functional flow named Listas restrictivas)
+Response – Status 200: User – this will be answer other questions (another functional flow named Listas restrictivas)
 ```json
 {
     "id": "a12f8bb1-3518-46b3-8b14-01c3d71b392d",
-     â€¦ (other values)
+     … (other values)
     "statusProcess": false,
     "statusReturn": "LISTAS"
 }
 ``` 
 
-Response â€“ Status 401:
+Response – Status 401:
 ```json
 {
   "Message": "Authorization has been denied for this request."
@@ -555,7 +556,7 @@ curl --location --request POST 'https://servicesdev.miid.bio/Partner/EnrollPerso
 **Response Information**:
 
 
-Response â€“ Status 200: User authenticated and enrolled
+Response – Status 200: User authenticated and enrolled
 ```json
 {
     "processId": "9e9de99c-948c-4b40-9b6d-5f1dbb693af8",
@@ -564,13 +565,121 @@ Response â€“ Status 200: User authenticated and enrolled
 }
 ```
 
-Response â€“ Status 401:
+Response – Status 401:
 ```json
 {
   "Message": "Authorization has been denied for this request."
 }
 ```
 ----
+
+
+## <a name="ValidateDocPersonAsyncGateway"></a>Validate Doc Person Async Gateway
+*This operation is Asynchronic*
+
+*Best Performance!*
+
+This operation process biometric information in backend server
+
+This operation return a unique process Id. this id can be used to get the status of process with operation **GetResultByProcessId**
+
+Url - POST
+> https://servicesdev.miid.bio/Partner/ValidateDocPersonAsyncGateway/
+
+Variables to Send:
+
+Body Type
+* **Form/Data**
+
+Form Variables
+
+
+* **BarcodeBase64**: Barcode PDF417/MRZ encoded string
+* **EmailAddress** : Email Address from final client
+* **ExternalId** : External Identifier From Partner client
+* **DocumentBackImage** :  Binary file with a back document capture
+* **DocumentFrontImage** :  Binary file with a front document capture
+* **EnterpriseClientId** : Enterprise client value provided by MiiD
+* **DocumentType** : Document Type
+* **DocumentNumber** : Document Number
+
+
+Or if you are using PKI
+
+* **BarcodeBase64**: Barcode PDF417/MRZ encoded string
+* **EmailAddress** : Email Address from final client
+* **ExternalId** : External Identifier From Partner client
+* **documentbackpki** :  PKI Text
+* **documentfrontpki** :  PKI Text
+* **EnterpriseClientId** : Enterprise client value provided by MiiD
+* **DocumentType** : Document Type
+* **DocumentNumber** : Document Number
+
+
+Response example:
+```json
+{
+    "processId": "9e9de99c-948c-4b40-9b6d-5f1dbb693af8",
+    "tokenValid": true,
+    "statusProcess": true
+}
+```
+
+Call Example
+```console
+curl --location --request POST 'https://servicesdev.miid.bio/Partner/ValidateDocPersonAsyncGateway \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1Qi...' \
+--form 'BarcodeBase64="MDIwMTYyOT..."' \
+--form 'EmailAddress="allan.diaz@bytte.com.co"' \
+--form 'ExternalId="aa-223344-111123-2003"' \
+--form 'DocumentBackImage=@"//reversoCO.jpg"' \
+--form 'DocumentFrontImage=@"//frenteCO.png"' \
+--form 'EnterpriseClientId="4500"' \
+--form 'DocumentType="1"' \
+--form 'DocumentNumber="80208223
+```
+
+---
+
+Call PKI Example
+```console
+curl --location --request POST 'https://servicesdev.miid.bio/Partner/ValidateDocPersonAsyncGateway \
+--header 'Authorization: Bearer eyJ0eXAiOiJKV1Qi...' \
+--form 'BarcodeBase64="MDIwMTYyOT..."' \
+--form 'EmailAddress="allan.diaz@bytte.com.co"' \
+--form 'ExternalId="aa-223344-111123-2003"' \
+--form 'documentbackpki="PKI__PKwDEPaEVYojAryISeDJPH1MiVT85xF ..."' \
+--form 'documentfrontpki="PKI__orXQ+e3XDuGyCw9pk61vmABrD9ioxq ..."' \
+--form 'EnterpriseClientId="4500"' \
+--form 'DocumentType="1"' \
+--form 'DocumentNumber="80208223
+```
+
+---
+
+**Response Information**:
+
+
+Response – Status 200: User authenticated and enrolled
+```json
+{
+    "processId": "9e9de99c-948c-4b40-9b6d-5f1dbb693af8",
+    "tokenValid": true,
+    "statusProcess": true
+}
+```
+
+Response – Status 401:
+```json
+{
+  "Message": "Authorization has been denied for this request."
+}
+```
+----
+
+
+
+
 ## <a name="ApiGatewayAuthenticationPersonFace"></a>Authentication Person Face
 > **Use only if the user is enrolled with FACE biometric factor**
 
@@ -633,7 +742,7 @@ curl --location --request POST 'https://servicesdev.miid.bio/Partner/Authenticat
 ---
 **Response Information**:
  
-Response â€“ Status 401:
+Response – Status 401:
 ```json
 {
   "Message": "Authorization has been denied for this request."
@@ -710,7 +819,7 @@ curl --location --request POST 'https://servicesdev.miid.bio/Partner/Authenticat
 ---
 **Response Information**: 
 
-Response â€“ Status 401:
+Response – Status 401:
 ```json
 {
   "Message": "Authorization has been denied for this request."
